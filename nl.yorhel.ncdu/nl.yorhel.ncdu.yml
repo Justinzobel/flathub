@@ -1,0 +1,25 @@
+app-id: nl.yorhel.ncdu
+command: ncdu
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.ziglang
+build-options:
+  append-path: /usr/lib/sdk/ziglang
+finish-args:
+  - --filesystem=host
+modules:
+  - name: ncdu
+    buildsystem: simple
+    build-commands:
+      - zig build
+      - install -Dm755 zig-out/bin/ncdu -t /app/bin/
+    sources:
+      - type: archive
+        url: https://dev.yorhel.nl/download/ncdu-2.7.tar.gz
+        sha256: b218cc14a2bb9852cf951db4e21aec8980e7a8c3aca097e3aa3417f20eb93000
+        x-checker-data:
+          type: anitya
+          project-id: 6045
+          url-template: https://dev.yorhel.nl/download/ncdu-$version.tar.gz
